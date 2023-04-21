@@ -13,6 +13,8 @@
     --gray-900: #121214;
   
     --green-500: #00875f;
+    --green-700: #01b57f;
+
 }
 
 * {
@@ -26,4 +28,9 @@ body {
     -webkit-font-smoothing: antialiased;
     color: antiquewhite;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+:focus {
+    outline: transparent;
+    box-shadow: 0 0 0 2px var(--green-500);
 }
