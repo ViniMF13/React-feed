@@ -5,6 +5,37 @@ import { Sidebar } from "./components/Sidebar";
 import styles from './App.module.css'
 import './global.css'
 
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/diego3g.png",
+      name: "vinicius F",
+      role: 'System Enginer',
+    },
+    content: [
+      {type: 'paragraph', content: 'fala galeraa', },
+      {type: 'paragraph', content: 'Estou contratando devs para o meu novo Negócio!!! Link para se candidatar abaixo.', },
+      {type: 'link', content: 'blackMarketCompany', },
+    ],
+    publishedAt: new Date('2023-04-22 20:54:34'),
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: "https://github.com/sammuelReis.png",
+      name: "Sammu El",
+      role: 'Systems Analist',
+    },
+    content: [
+      {type: 'paragraph', content: 'fala galeraa', },
+      {type: 'paragraph', content: 'Estou contratando devs para o meu novo Negócio!!! Link para se candidatar abaixo.', },
+      {type: 'link', content: 'blackMarketCompany', },
+    ],
+    publishedAt: new Date('2023-04-21 22:14:59'),
+  },
+];
+
 function App() {
   return (
     <div>
@@ -13,18 +44,15 @@ function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <Post
-             author='Vini Sim'
-             content='Engenharia de Sistemas'
-          />
-          <Post
-             author='Albert Einstein'
-             content='Rela na atividade'
-          />
-          <Post
-             author='samu'
-             content='SIstemas de Info'
-          />
+          {posts.map(post => {
+            return (
+                <Post
+                  author={post.author}
+                  content={post.content}
+                  publishedAt={post.publishedAt}
+               />     
+            )
+          })}
         </main>
       
       </div>
