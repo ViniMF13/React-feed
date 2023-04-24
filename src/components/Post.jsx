@@ -41,7 +41,7 @@ export function Post({ author, content, publishedAt }) {
       setComments(commentsWithoutDeletedOne)
     }
   
-
+    const isNewCommentEmpty = newCommentText.length == 0
     return (
         <article className={styles.post}>
           <header>
@@ -70,10 +70,11 @@ export function Post({ author, content, publishedAt }) {
                name='comment'
                placeholder='Deixe seu comentário'
                value={newCommentText}
+               required
                />
 
               <footer id='submitBtn'>
-                 <button type='submit'>Coment</button>
+                 <button type='submit' disabled={isNewCommentEmpty}>Coment</button>
               </footer>
           </form>
 
