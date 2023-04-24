@@ -3,10 +3,10 @@ import { Comment } from './Comment'
 import { Avatar } from './Avatar';
 import { format, formatDistanceToNow} from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { useState } from 'react';
 
 
 export function Post({ author, content, publishedAt }) {
-
     const publishetAtFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
       locale: ptBR,
     })
@@ -15,6 +15,32 @@ export function Post({ author, content, publishedAt }) {
       locale: ptBR,
       addSuffix: true,
     })
+
+    const [comments, setComments] = useState([
+      
+    ])
+
+    const [newCommentText, setNewCommentText] = useState('')
+  
+    function handleCreateNewComment() {
+      event.preventDefault()
+
+      setComments([...comments, newCommentText])
+      setNewCommentText('')
+    }
+    
+    function handleNewCommentChange() {
+      setNewCommentText(event.target.value)
+    }
+   
+    function deleteComment(commentToDelete) {
+      const commentsWithoutDeletedOne = comments.filter(comment => {
+        return comment !== commentToDelete
+      })
+
+      setComments(commentsWithoutDeletedOne)
+    }
+  
 
     return (
         <article className={styles.post}>
@@ -36,20 +62,31 @@ export function Post({ author, content, publishedAt }) {
             <a href="#">{content[2].content}</a>
           </div>
 
-          <form className={styles.commentForm}>
+          <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
              <strong>Give a Feedback</strong>
              
-             <textarea placeholder='Deixe seu comentário'/>
+             <textarea 
+               onChange={handleNewCommentChange} 
+               name='comment'
+               placeholder='Deixe seu comentário'
+               value={newCommentText}
+               />
 
-             <footer>
+              <footer id='submitBtn'>
                  <button type='submit'>Coment</button>
-             </footer>
+              </footer>
           </form>
 
           <div className={styles.commentList}>
-            <Comment />
-            <Comment />
-            <Comment />
+            {comments.map(comment => {
+              return (
+                 <Comment 
+                    key={comment}
+                    content={comment}
+                    onDeleteComment={deleteComment}
+                  />     
+            )
+          })}
           </div>
         </article>
     )
